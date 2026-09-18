@@ -10,6 +10,8 @@ import service.HistoryService;
 import service.ResearchService;
 import service.BrainstormService;
 
+import util.FileManager;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -19,6 +21,7 @@ public class Main {
         HistoryService historyService = new HistoryService();
         ResearchService researchService = new ResearchService();
         BrainstormService brainstormService = new BrainstormService();
+        FileManager fileManager = new FileManager();
 
         System.out.println("========================================");
         System.out.println("              USEYOURBRAIN");
@@ -60,11 +63,20 @@ try {
 
                 case 1:
 
-                    DecisionSession session = decisionService.startDecisionSession(scanner);
+                    DecisionSession session =
+                decisionService.startDecisionSession(scanner);
 
                     session.displaySummary();
 
                     historyService.addSession(session);
+
+                    fileManager.saveSession(
+                        "Decision Mode",
+                        "Decision: " + session.getDecision()
+                        + "\nInitial belief: " + session.getInitialBelief()
+                        + "\nFinal decision: " + session.getFinalDecision()
+                        + "\nThinking changed: " + session.getThinkingChanged()
+                    );
 
                     System.out.println("\nRemember:");
                     System.out.println("Use AI to assist your thinking —");
@@ -78,6 +90,16 @@ try {
 
                     researchSession.displaySummary();
 
+                    fileManager.saveSession(
+                        "Research Mode",
+                        "Research Question: " + researchSession.getResearchQuestion()
+                        + "\nExisting Belief: " + researchSession.getExistingBelief()
+                        + "\nSources: " + researchSession.getSources()
+                        + "\nSupporting Evidence: " + researchSession.getSupportingEvidence()
+                        + "\nChallenging Evidence: " + researchSession.getChallengingEvidence()
+                        + "\nConclusion: " + researchSession.getConclusion()
+                    );
+
                     break;
 
                 case 3:
@@ -86,11 +108,23 @@ try {
 
                     brainstormSession.displaySummary();
 
+                    fileManager.saveSession(
+                        "Brainstorm Mode",
+                        "Topic / Problem: " + brainstormSession.getTopic()
+                        + "\nExisting Knowledge: " + brainstormSession.getExistingKnowledge()
+                        + "\nIdeas Generated: " + brainstormSession.getIdeas()
+                        + "\nConstraints: " + brainstormSession.getConstraints()
+                        + "\nFeasible Ideas: " + brainstormSession.getFeasibleIdeas()
+                        + "\nChosen Direction: " + brainstormSession.getChosenDirection()
+                    );
+
                     break;
 
                 case 4:
 
                     historyService.displayHistory();
+
+                    fileManager.displaySavedSessions();
 
                     break;
 
