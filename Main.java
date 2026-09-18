@@ -1,8 +1,10 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import model.DecisionSession;
+import model.ResearchSession;
 import service.DecisionService;
 import service.HistoryService;
+import service.ResearchService;
 
 public class Main {
 
@@ -11,6 +13,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         DecisionService decisionService = new DecisionService();
         HistoryService historyService = new HistoryService();
+        ResearchService researchService = new ResearchService();
 
         System.out.println("========================================");
         System.out.println("              USEYOURBRAIN");
@@ -65,8 +68,11 @@ try {
                     break;
 
                 case 2:
-                    System.out.println("\n[Research Mode]");
-                    System.out.println("Coming soon...");
+
+                    ResearchSession researchSession = researchService.startResearchSession(scanner);
+
+                    researchSession.displaySummary();
+
                     break;
 
                 case 3:
