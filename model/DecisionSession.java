@@ -1,6 +1,6 @@
 package model;
 
-public class DecisionSession {
+public class DecisionSession implements Session {
 
     private String decision;
     private String initialBelief;
@@ -75,6 +75,25 @@ public class DecisionSession {
 
     public String getThinkingChanged() {
         return thinkingChanged;
+    }
+
+    @Override
+    public String getSessionType() {
+        return "Decision Mode";
+    }
+
+    @Override
+    public String getSummary() {
+        return "Decision: " + decision
+            + "\nInitial belief: " + initialBelief
+            + "\nReasoning: " + reason
+            + "\nBenefits: " + benefits
+            + "\nDrawbacks: " + drawbacks
+            + "\nAlternatives: " + alternatives
+            + "\nEvidence: " + evidence
+            + "\nPotential blind spot: " + overlooked
+            + "\nFinal decision: " + finalDecision
+            + "\nThinking changed: " + thinkingChanged;
     }
 
     public void displaySummary() {

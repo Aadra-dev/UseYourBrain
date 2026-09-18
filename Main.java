@@ -90,6 +90,8 @@ try {
 
                     researchSession.displaySummary();
 
+                    historyService.addSession(researchSession);
+
                     fileManager.saveSession(
                         "Research Mode",
                         "Research Question: " + researchSession.getResearchQuestion()
@@ -108,6 +110,8 @@ try {
 
                     brainstormSession.displaySummary();
 
+                    historyService.addSession(brainstormSession);
+
                     fileManager.saveSession(
                         "Brainstorm Mode",
                         "Topic / Problem: " + brainstormSession.getTopic()
@@ -122,9 +126,7 @@ try {
 
                 case 4:
 
-                    historyService.displayHistory();
-
-                    fileManager.displaySavedSessions();
+                    historyService.displayHistoryMenu(scanner, fileManager);
 
                     break;
 

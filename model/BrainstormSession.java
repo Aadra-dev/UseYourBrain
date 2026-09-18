@@ -1,6 +1,6 @@
 package model;
 
-public class BrainstormSession {
+public class BrainstormSession implements Session {
 
     private String topic;
     private String existingKnowledge;
@@ -49,6 +49,21 @@ public class BrainstormSession {
         return chosenDirection;
     }
 
+    @Override
+    public String getSessionType() {
+        return "Brainstorm Mode";
+    }
+
+    @Override
+    public String getSummary() {
+        return "Topic / Problem: " + topic
+            + "\nExisting Knowledge: " + existingKnowledge
+            + "\nIdeas Generated: " + ideas
+            + "\nConstraints: " + constraints
+            + "\nFeasible Ideas: " + feasibleIdeas
+            + "\nChosen Direction: " + chosenDirection;
+    }
+    
     public void displaySummary() {
 
         System.out.println("\n========================================");

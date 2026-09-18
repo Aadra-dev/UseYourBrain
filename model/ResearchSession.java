@@ -1,6 +1,6 @@
 package model;
 
-public class ResearchSession {
+public class ResearchSession implements Session {
 
     private String researchQuestion;
     private String existingBelief;
@@ -47,6 +47,21 @@ public class ResearchSession {
 
     public String getConclusion() {
         return conclusion;
+    }
+
+    @Override
+    public String getSessionType() {
+        return "Research Mode";
+    }
+
+    @Override
+    public String getSummary() {
+        return "Research Question: " + researchQuestion
+            + "\nExisting Belief: " + existingBelief
+            + "\nSources: " + sources
+            + "\nSupporting Evidence: " + supportingEvidence
+            + "\nChallenging Evidence: " + challengingEvidence
+            + "\nConclusion: " + conclusion;
     }
 
     public void displaySummary() {

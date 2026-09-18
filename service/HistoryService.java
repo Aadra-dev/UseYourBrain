@@ -2,52 +2,102 @@ package service;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.DecisionSession;
+import java.util.Scanner;
+
+import model.Session;
+import util.FileManager;
 
 public class HistoryService {
 
-    private List<DecisionSession> decisionHistory;
+    private List<Session> sessionHistory;
 
     public HistoryService() {
-        decisionHistory = new ArrayList<>();
+        sessionHistory = new ArrayList<>();
     }
 
-    public void addSession(DecisionSession session) {
-        decisionHistory.add(session);
+    public void addSession(Session session) {
+        sessionHistory.add(session);
     }
 
     public int getSessionCount() {
-        return decisionHistory.size();
+        return sessionHistory.size();
+    }
+
+    public void displayHistoryMenu(Scanner scanner, FileManager fileManager) {
+
+        while (true) {
+
+            System.out.println("\n========================================");
+            System.out.println("        REFLECTION & HISTORY");
+            System.out.println("========================================");
+
+            System.out.println("\n1. View current session history");
+            System.out.println("2. View all saved sessions");
+            System.out.println("3. Back to main menu");
+
+            System.out.print("\nEnter your choice: ");
+
+            String choice = scanner.nextLine().trim();
+
+            switch (choice) {
+
+                case "1":
+                    displayHistory();
+                    break;
+
+                case "2":
+                    fileManager.displaySavedSessions();
+                    break;
+
+                case "3":
+                    return;
+
+                default:
+                    System.out.println(
+                            "\nInvalid choice. Please enter 1, 2, or 3."
+                    );
+            }
+        }
     }
 
     public void displayHistory() {
 
     System.out.println("\n========================================");
-    System.out.println("        REFLECTION & HISTORY");
+        System.out.println("       CURRENT SESSION HISTORY");
     System.out.println("========================================");
 
-        if (decisionHistory.isEmpty()) {
-            System.out.println("\nNo decision sessions found.");
-            System.out.println("Complete a Decision Mode session first.");
+        if (sessionHistory.isEmpty()) {
+
+            System.out.println("\nNo sessions found.");
+            System.out.println(
+                "Complete a Decision, Research, or Brainstorm session first."
+            );
+
             return;
         }
 
-        System.out.println("\nTotal sessions: " + decisionHistory.size());
+        System.out.println(
+            "\nTotal sessions: " + sessionHistory.size()
+        );
 
-        for (int i = 0; i < decisionHistory.size(); i++) {
+        for (int i = 0; i < sessionHistory.size(); i++) {
 
-            DecisionSession session = decisionHistory.get(i);
+            Session session = sessionHistory.get(i);
 
     System.out.println("\n----------------------------------------");
-        System.out.println("Session " + (i + 1));
+            System.out.println("Session " + (i + 1));
     System.out.println("----------------------------------------");
 
-            System.out.println("Decision: " + session.getDecision());
-            System.out.println("Initial belief: " + session.getInitialBelief());
-            System.out.println("Final decision: " + session.getFinalDecision());
-            System.out.println("Thinking changed: " + session.getThinkingChanged());
+            System.out.println(
+                "Type: " + session.getSessionType()
+            );
+
+            System.out.println(
+                session.getSummary()
+            );
         }
 
     System.out.println("\n========================================");
     }
+        
 }
