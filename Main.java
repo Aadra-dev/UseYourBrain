@@ -1,10 +1,14 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
+
 import model.DecisionSession;
 import model.ResearchSession;
+import model.BrainstormSession;
+
 import service.DecisionService;
 import service.HistoryService;
 import service.ResearchService;
+import service.BrainstormService;
 
 public class Main {
 
@@ -14,6 +18,7 @@ public class Main {
         DecisionService decisionService = new DecisionService();
         HistoryService historyService = new HistoryService();
         ResearchService researchService = new ResearchService();
+        BrainstormService brainstormService = new BrainstormService();
 
         System.out.println("========================================");
         System.out.println("              USEYOURBRAIN");
@@ -76,8 +81,11 @@ try {
                     break;
 
                 case 3:
-                    System.out.println("\n[Brainstorm Mode]");
-                    System.out.println("Coming soon...");
+
+                    BrainstormSession brainstormSession = brainstormService.startBrainstormSession(scanner);
+
+                    brainstormSession.displaySummary();
+
                     break;
 
                 case 4:
@@ -98,36 +106,6 @@ try {
 
         scanner.close();
     }
-    private static String getNonEmptyInput(Scanner scanner, String question) {
-
-        while (true) {
-
-            System.out.print(question);
-
-            String input = scanner.nextLine().trim();
-
-            if (!input.isEmpty()) {
-                return input;
-            }
-
-            System.out.println("Input cannot be empty. Please try again.");
-        }
-    }
-
-    private static String getYesNoInput(Scanner scanner, String question) {
-
-        while (true) {
-
-            System.out.print(question);
-
-            String input = scanner.nextLine().trim().toLowerCase();
-
-            if (input.equals("yes") || input.equals("no")) {
-                return input;
-            }
-
-            System.out.println("Please enter only 'yes' or 'no'.");
-        }
-    }
+    
 }
 
