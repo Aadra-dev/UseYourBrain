@@ -75,8 +75,9 @@ try {
                     break;
 
                 case 4:
-                    System.out.println("\n[Reflection & History]");
-                    System.out.println("Coming soon...");
+
+                    historyService.displayHistory();
+
                     break;
 
                 case 5:
